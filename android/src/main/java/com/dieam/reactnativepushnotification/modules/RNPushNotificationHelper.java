@@ -358,7 +358,7 @@ public class RNPushNotificationHelper {
             long fireDate = (long) bundle.getDouble("fireDate");
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(fireDate);
-            cal.add(Calendar.DAY, 1);
+            cal.add(Calendar.DAY_OF_MONTH, 1);
 
             Random rand = new Random();
             int hours = rand.nextInt(12);
