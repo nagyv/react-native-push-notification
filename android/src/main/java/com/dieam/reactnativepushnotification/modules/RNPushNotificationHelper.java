@@ -20,6 +20,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.util.Calendar;
+import android.util.Random;
 
 import com.facebook.react.bridge.ReadableMap;
 
@@ -354,40 +356,17 @@ public class RNPushNotificationHelper {
 
         if (repeatType != null) {
             long fireDate = (long) bundle.getDouble("fireDate");
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(fireDate);
+            cal.add(Calendar.DAY, 1);
 
-            boolean validRepeatType = Arrays.asList("time", "week", "day", "hour", "minute").contains(repeatType);
+            Random rand = new Random();
+            int hours = rand.nextInt(12);
+            int minutes = rand.nextInt(60);
+            cal.set(Calendar.HOUR_OF_DAY, 9 + hours)
+            cal.set(Calendar.MINUTE, 0 + minutes);
 
-            // Sanity checks
-            if (!validRepeatType) {
-                Log.w(LOG_TAG, String.format("Invalid repeatType specified as %s", repeatType));
-                return;
-            }
-
-            if ("time".equals(repeatType) && repeatTime <= 0) {
-                Log.w(LOG_TAG, "repeatType specified as time but no repeatTime " +
-                        "has been mentioned");
-                return;
-            }
-
-            long newFireDate = 0;
-
-            switch (repeatType) {
-                case "time":
-                    newFireDate = fireDate + repeatTime;
-                    break;
-                case "week":
-                    newFireDate = fireDate + 7 * ONE_DAY;
-                    break;
-                case "day":
-                    newFireDate = fireDate + ONE_DAY;
-                    break;
-                case "hour":
-                    newFireDate = fireDate + ONE_HOUR;
-                    break;
-                case "minute":
-                    newFireDate = fireDate + ONE_MINUTE;
-                    break;
-            }
+            long newFireDate = cal.getTimeInMillis();
 
             // Sanity check, should never happen
             if (newFireDate != 0) {
