@@ -20,8 +20,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.util.Calendar;
-import android.util.Random;
+import java.util.Calendar;
+import java.util.Random;
 
 import com.facebook.react.bridge.ReadableMap;
 
