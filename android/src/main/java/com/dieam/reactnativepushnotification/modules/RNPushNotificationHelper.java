@@ -363,7 +363,7 @@ public class RNPushNotificationHelper {
             Random rand = new Random();
             int hours = rand.nextInt(12);
             int minutes = rand.nextInt(60);
-            cal.set(Calendar.HOUR_OF_DAY, 9 + hours)
+            cal.set(Calendar.HOUR_OF_DAY, 9 + hours);
             cal.set(Calendar.MINUTE, 0 + minutes);
 
             long newFireDate = cal.getTimeInMillis();
